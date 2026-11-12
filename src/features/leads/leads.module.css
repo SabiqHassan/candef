@@ -399,8 +399,8 @@
   min-height: 3.2em;
   padding: var(--s2);
   font: inherit;
-  color: var(--text-1, inherit);
-  background: var(--surface-0, transparent);
+  color: var(--text);
+  background: var(--surface-2);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-sm);
 }
@@ -408,7 +408,7 @@
 .askExamples button {
   font: inherit;
   cursor: pointer;
-  color: var(--text-1, inherit);
+  color: var(--text);
   background: var(--accent-soft);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-sm);
@@ -432,7 +432,7 @@
   margin-top: var(--s3);
   white-space: pre-wrap;
   overflow-wrap: anywhere;
-  color: var(--text-1, inherit);
+  color: var(--text);
 }
 .askNote {
   margin: var(--s2) 0 0;
@@ -446,11 +446,26 @@
 .askRow select {
   font: inherit;
   padding: var(--s2);
-  color: var(--text-1, inherit);
-  background: var(--surface-0, transparent);
+  color: var(--text);
+  background: var(--surface-2);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-sm);
 }
 .askRow input {
   flex: 1;
+}
+
+/* Form controls: dark native menus with readable option text */
+.askRow input,
+.askRow select,
+.askRow textarea {
+  color-scheme: dark;
+}
+.askRow select option {
+  color: var(--text);
+  background-color: var(--surface-3);
+}
+.askRow input::placeholder,
+.askRow textarea::placeholder {
+  color: var(--text-muted);
 }
