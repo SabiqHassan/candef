@@ -1,0 +1,12 @@
+import { compile } from "../../pipeline/compile/compile";
+import { canonicalJson, sha256 } from "../../pipeline/compile/hash";
+import { generateStressCorpus } from "../../pipeline/synthetic/stress";
+const n = Number(process.argv[2] ?? 8000);
+const s = compile(generateStressCorpus({ companies: n }).corpus, { today: "2026-10-13" }).snapshot!;
+const { meta: _m, ...body } = s;
+let t = performance.now();
+sha256(canonicalJson(body));
+console.log("canonical hash ms", Math.round(performance.now() - t));
+t = performance.now();
+sha256(JSON.stringify(body));
+console.log("plain hash ms", Math.round(performance.now() - t));

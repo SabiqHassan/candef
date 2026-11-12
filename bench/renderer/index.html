@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <title>CANDEF renderer benchmark</title>
+  </head>
+  <body>
+    <header>
+      <strong>CANDEF / Renderer</strong><span class="synthetic">SYNTHETIC FIXTURE</span>
+      <label
+        >Size
+        <select id="size">
+          <option value="small">Small</option>
+          <option value="large">Large</option>
+        </select></label
+      >
+      <label
+        >Mode<select id="mode">
+          <option value="app">App / bundles</option>
+          <option value="all">Stress / all edges</option>
+        </select></label
+      >
+      <button id="highlight">Select investor</button
+      ><button id="visibility" aria-pressed="false">Filter half</button
+      ><button id="reset">Reset camera</button>
+      <button id="panel-toggle" aria-pressed="false">Toggle 400 px panel</button>
+      <label><input id="reduced" type="checkbox" />Reduced motion</label
+      ><label><input id="labels" type="checkbox" checked />Labels</label>
+    </header>
+    <main id="host">
+      <aside id="panel" hidden>
+        <strong>Portfolio panel</strong>
+        <p>400 px overlay. Framing and labels use the remaining viewport.</p>
+        <p>Synthetic data for renderer verification.</p>
+      </aside>
+    </main>
+    <footer>
+      <output id="status" aria-live="polite">Loading renderer…</output
+      ><span>Drag to orbit · scroll to zoom · click to inspect</span>
+    </footer>
+    <script type="module" src="/main.ts"></script>
+  </body>
+</html>

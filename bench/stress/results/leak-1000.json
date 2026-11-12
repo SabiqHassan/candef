@@ -1,0 +1,16 @@
+{
+  "at": "2026-10-14T23:08:48.726Z",
+  "viewAndLensSwitching": {
+    "cycles": 90,
+    "early": {
+      "heapMB": 24.8,
+      "domNodes": 255,
+      "listeners": 192
+    },
+    "late": {
+      "heapMB": 27.2,
+      "domNodes": 345,
+      "listeners": 282
+    }
+  }
+}

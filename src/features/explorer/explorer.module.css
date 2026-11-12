@@ -1,0 +1,965 @@
+.explorer {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 55% 45%, #0b1118 0%, var(--ink) 70%);
+}
+.explorer :global(.graph-host) {
+  position: absolute;
+  inset: 0;
+}
+/* Suspense fallback while the 3D chunk loads: centred and quiet, not raw text at the top-left. */
+.graphLoading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}
+
+/* ---- Floating chrome ---------------------------------------------------------------------- */
+.lensBar {
+  position: absolute;
+  top: var(--s3);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--s3);
+  /* Spans left→right insets; only its children take pointer input, so the canvas stays usable. */
+  pointer-events: none;
+  transition:
+    left 200ms var(--ease),
+    right 200ms var(--ease);
+}
+.lensBar > * {
+  pointer-events: auto;
+}
+.lensTabs {
+  display: inline-flex;
+  padding: 3px;
+  background: var(--surface-glass);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(8px);
+}
+.lensTabs button {
+  border: 0;
+  background: transparent;
+  color: var(--text-2);
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+.lensTabs button:hover {
+  color: var(--text);
+}
+.lensTabs .lensActive {
+  background: var(--surface-3);
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+}
+.lensSummary {
+  margin: 0;
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  max-width: 440px;
+  text-shadow: 0 1px 8px var(--ink);
+}
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+  background: var(--surface-glass);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 4px 8px;
+}
+
+.controls {
+  position: absolute;
+  bottom: var(--s4);
+  z-index: 5;
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  background: var(--surface-glass);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(8px);
+  transition: right 200ms var(--ease);
+}
+.controls button {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-2);
+}
+/* The view switch carries a visible word: an icon alone read as ambiguous in the UX review. */
+.controls button.labelled {
+  width: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  font-size: var(--fs-sm);
+}
+.controls button:hover {
+  background: var(--surface-3);
+  color: var(--text);
+}
+.controls button[aria-pressed="true"] {
+  color: var(--accent);
+}
+.controls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.legend {
+  position: absolute;
+  bottom: var(--s4);
+  z-index: 4;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s4);
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+  pointer-events: none;
+  transition:
+    left 200ms var(--ease),
+    right 200ms var(--ease);
+}
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.legendNote {
+  color: var(--text-muted);
+}
+
+.dotCompany,
+.dotInvestor,
+.dotGov {
+  width: 9px;
+  height: 9px;
+  flex: none;
+  display: inline-block;
+}
+.dotCompany {
+  background: var(--company);
+  border-radius: 50%;
+}
+.dotInvestor {
+  background: var(--investor);
+  transform: rotate(45deg) scale(0.85);
+}
+.dotGov {
+  background: var(--government);
+}
+.lineSolid,
+.lineDashed {
+  width: 18px;
+  height: 0;
+  border-top: 1.5px solid var(--text-2);
+  display: inline-block;
+}
+.lineDashed {
+  border-top-style: dashed;
+}
+.lineProcurement,
+.lineGrant {
+  width: 18px;
+  height: 0;
+  border-top: 2px solid var(--edge-procurement);
+  display: inline-block;
+}
+.lineGrant {
+  border-top-color: var(--edge-grant);
+}
+
+.emptyGraph {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--s3);
+  color: var(--text-2);
+  pointer-events: none;
+}
+.emptyGraph p {
+  max-width: 46ch;
+  margin: 0;
+  text-align: center;
+}
+.emptyGraph button,
+.emptyGraph a {
+  pointer-events: auto;
+}
+
+/* ---- Directory ------------------------------------------------------------------------------ */
+.directory {
+  position: absolute;
+  z-index: 6;
+  top: var(--s3);
+  left: var(--s3);
+  bottom: var(--s3);
+  width: var(--directory-w);
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-glass);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+.dirHead {
+  padding: var(--s3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  border-bottom: 1px solid var(--line);
+}
+.search {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: 0 var(--s2);
+  height: 34px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-1);
+  color: var(--text-muted);
+}
+.search:focus-within {
+  border-color: var(--accent);
+}
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+}
+.search button {
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  display: grid;
+  place-items: center;
+}
+.filters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.filters select {
+  min-width: 0;
+  height: 30px;
+  padding: 0 6px;
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+.chips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chips button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  min-height: 28px;
+  padding: 0 var(--s2);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+.chips button:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+.reset {
+  align-self: flex-start;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  padding: 0;
+  font-size: var(--fs-sm);
+}
+.tabs {
+  display: flex;
+  padding: 0 var(--s3);
+  gap: var(--s4);
+  border-bottom: 1px solid var(--line);
+}
+.tabs button {
+  border: 0;
+  background: none;
+  padding: 10px 0;
+  color: var(--text-muted);
+  border-bottom: 2px solid transparent;
+  font-weight: 500;
+  display: inline-flex;
+  gap: 6px;
+}
+.tabs button[aria-selected="true"] {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+.list {
+  list-style: none;
+  margin: 0;
+  padding: var(--s1) 0;
+  overflow-y: auto;
+  flex: 1;
+}
+.row,
+.rowActive {
+  width: 100%;
+  /* Fixed height: the company list is windowed (Directory.tsx ROW_H). */
+  height: 49px;
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  padding: 7px var(--s3);
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+.row:hover {
+  background: var(--surface-2);
+}
+.rowActive {
+  background: var(--accent-soft);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+.rowText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.rowName {
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rowMeta {
+  color: var(--text-muted);
+  font-size: var(--fs-xs);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.more {
+  width: 100%;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  padding: var(--s3);
+}
+.empty {
+  padding: var(--s4) var(--s3);
+  color: var(--text-2);
+}
+.empty button {
+  border: 0;
+  background: none;
+  color: var(--accent);
+  padding: 0;
+}
+
+/* ---- Right panel ------------------------------------------------------------------------------ */
+.panel {
+  position: absolute;
+  z-index: 7;
+  top: var(--s3);
+  right: var(--s3);
+  bottom: var(--s3);
+  width: var(--panel-w);
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: -12px 0 40px rgb(0 0 0 / 0.35);
+  overflow: hidden;
+  animation: panelIn 220ms var(--ease);
+}
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+}
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.cardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s3);
+  padding: var(--s4) var(--s4) var(--s3);
+  border-bottom: 1px solid var(--line);
+}
+.cardTitle h2 {
+  font-size: var(--fs-xl);
+  line-height: 1.25;
+}
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: var(--s2);
+}
+.badge {
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  padding: 0 6px;
+  line-height: 18px;
+}
+.iconBtn {
+  width: 30px;
+  height: 30px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text-2);
+}
+.iconBtn:hover {
+  color: var(--text);
+}
+.cardBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--s3) var(--s4) var(--s4);
+}
+.segment {
+  margin: 0 0 var(--s2);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+.description {
+  margin: 0 0 var(--s4);
+  color: var(--text);
+  line-height: 1.55;
+}
+.facts {
+  display: grid;
+  grid-template-columns: 128px 1fr;
+  gap: 8px var(--s3);
+  margin: 0;
+  font-size: var(--fs-md);
+}
+.facts dt {
+  color: var(--text-muted);
+}
+.facts dd {
+  margin: 0;
+  min-width: 0;
+}
+.section {
+  margin-top: var(--s5);
+  padding-top: var(--s4);
+  border-top: 1px solid var(--line);
+}
+.section h3 {
+  font-size: var(--fs-md);
+  margin-bottom: var(--s2);
+  color: var(--text);
+}
+.metric {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin: 0 0 var(--s1);
+}
+.metric > :global(.num) {
+  font-size: var(--fs-xl);
+  color: var(--text);
+}
+.metricNote {
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}
+.small {
+  margin: var(--s1) 0;
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+.flag {
+  margin: var(--s1) 0;
+  font-size: var(--fs-sm);
+  color: var(--state-unconfirmed);
+}
+.chipList {
+  list-style: none;
+  margin: var(--s3) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.chipList li {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s2);
+  flex-wrap: wrap;
+}
+.entityChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 0;
+  background: none;
+  color: var(--text);
+  padding: 2px 0;
+}
+.entityChip:hover {
+  color: var(--accent);
+}
+.lead {
+  font-size: var(--fs-xs);
+  color: var(--investor);
+}
+.via {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+.linkBtn {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--accent);
+  text-align: left;
+}
+.linkBtn:hover {
+  text-decoration: underline;
+}
+.linkBtn[aria-pressed="true"] {
+  font-weight: 600;
+}
+.coverage {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+  font-size: var(--fs-sm);
+}
+.coverage li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s3);
+}
+.ok {
+  color: var(--text-2);
+}
+.muted {
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}
+.cardFoot {
+  display: flex;
+  gap: var(--s2);
+  padding: var(--s3) var(--s4);
+  border-top: 1px solid var(--line);
+}
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 var(--s4);
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+.primary {
+  flex: 1;
+  background: var(--accent);
+  color: #06121c;
+}
+.primary:hover {
+  text-decoration: none;
+  filter: brightness(1.08);
+}
+.secondary {
+  border: 1px solid var(--line-strong);
+  background: var(--surface-2);
+  color: var(--text);
+}
+.compactList {
+  list-style: none;
+  margin: var(--s2) 0 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+  font-size: var(--fs-sm);
+}
+.compactList li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s3);
+}
+.overlap {
+  margin-top: var(--s3);
+  padding: var(--s3);
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+}
+.exposure {
+  list-style: none;
+  margin: var(--s3) 0;
+  padding: 0;
+  display: grid;
+  gap: 5px;
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+}
+.exposure li {
+  display: grid;
+  grid-template-columns: 150px 1fr 24px;
+  align-items: center;
+  gap: var(--s2);
+}
+.bar {
+  height: 6px;
+  background: var(--surface-3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.bar span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  opacity: 0.7;
+}
+.records {
+  list-style: none;
+  margin: var(--s2) 0 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+  font-size: var(--fs-sm);
+}
+.records li {
+  display: grid;
+  gap: 2px;
+  padding: var(--s2);
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+}
+
+/* ---- List mode ---------------------------------------------------------------------------------- */
+.listMode {
+  position: absolute;
+  top: 64px;
+  /* Stops above the view controls so they never cover the last rows or columns. */
+  bottom: 64px;
+  overflow: auto;
+  z-index: 3;
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: var(--s3) var(--s4);
+}
+.fallback {
+  margin: 0 0 var(--s3);
+  padding: var(--s2) var(--s3);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text);
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+}
+.table th,
+.table td {
+  text-align: left;
+  padding: 7px 10px 7px 0;
+  border-bottom: 1px solid var(--line);
+  /* Cells with chips may wrap so the table fits a laptop; names and figures stay on one line. */
+  white-space: normal;
+}
+.table tbody th,
+.table td:global(.num) {
+  white-space: nowrap;
+}
+.table th:global(.num),
+.table td:global(.num) {
+  text-align: right;
+  padding-left: 10px;
+}
+.table thead th {
+  position: sticky;
+  top: calc(-1 * var(--s3));
+  background: var(--surface-1);
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.table thead button {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-weight: inherit;
+}
+.table thead th[aria-sort="ascending"] button::after {
+  content: " ↑";
+}
+.table thead th[aria-sort="descending"] button::after {
+  content: " ↓";
+}
+.table tbody th {
+  font-weight: 400;
+}
+.table tr[aria-selected="true"] {
+  background: var(--accent-soft);
+}
+
+/* ---- Narrow screens ------------------------------------------------------------------------------ */
+@media (max-width: 900px) {
+  .directory {
+    z-index: 8;
+    top: 64px;
+    left: var(--s2);
+    right: var(--s2);
+    bottom: 72px;
+    width: auto;
+  }
+  .panel {
+    top: auto;
+    left: var(--s2);
+    right: var(--s2);
+    bottom: var(--s2);
+    width: auto;
+    height: 58%;
+  }
+  .legend {
+    display: none;
+  }
+  .lensSummary {
+    display: none;
+  }
+  .listMode {
+    left: var(--s2) !important;
+    right: var(--s2) !important;
+  }
+}
+
+/* ---- Time view (docs/TIME_VIEW.md) ---------------------------------------------------------- */
+.time {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+  background: var(--surface-glass);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 4px 8px;
+}
+.time label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.time select {
+  font: inherit;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 2px 4px;
+}
+.time input[type="range"] {
+  width: 160px;
+  accent-color: var(--accent);
+}
+.timeYear {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  min-width: 4ch;
+}
+.timeStatus {
+  margin: 0;
+  max-width: 520px;
+  padding: 4px 8px;
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+  background: var(--surface-glass);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+
+/* ---- List view on phones: stacked rows, no lost columns (UX review #2, #7) --------------------- */
+.directoryFilters {
+  bottom: auto;
+}
+.mobileSort {
+  display: none;
+}
+@media (max-width: 900px) {
+  .mobileSort {
+    display: flex;
+    align-items: center;
+    gap: var(--s2);
+    margin: 0 0 var(--s3);
+    font-size: var(--fs-sm);
+    color: var(--text-2);
+  }
+  .mobileSort label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s2);
+  }
+  .mobileSort select,
+  .mobileSort button {
+    height: 36px;
+    padding: 0 var(--s2);
+    background: var(--surface-2);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font: inherit;
+  }
+  .mobileSort button {
+    width: 36px;
+  }
+  /* The headers stay for screen readers; each cell carries its own visible label instead. */
+  .table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .table,
+  .table tbody {
+    display: block;
+  }
+  .table tr {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+    padding: var(--s3) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .table tr[aria-selected="true"] {
+    padding-inline: var(--s2);
+  }
+  .table th,
+  .table td {
+    border-bottom: 0;
+    padding: 0;
+    white-space: normal;
+  }
+  .table tbody th {
+    font-size: var(--fs-lg);
+    padding-bottom: var(--s1);
+  }
+  /* Flex, not grid: a cell's text and its citation chips are separate children that must share a line. */
+  .table td {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 var(--s1);
+    color: var(--text);
+    text-align: left;
+    min-height: 24px;
+  }
+  .table td::before {
+    content: attr(data-label);
+    flex: 0 0 132px;
+    color: var(--text-muted);
+  }
+  .table td:global(.num),
+  .table th:global(.num) {
+    text-align: left;
+    padding-left: 0;
+  }
+}
+
+/* 3D | 2D switch in the view toolbar: current mode shown like the lens tabs. */
+.modeSwitch {
+  display: inline-flex;
+  gap: 1px;
+  padding: 2px;
+  margin: 0 2px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--ink);
+}
+.modeSwitch button {
+  width: 32px;
+  height: 26px;
+  margin: 1px 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--text-muted);
+  font: 500 var(--fs-sm) / 1 var(--font-mono);
+  letter-spacing: 0.02em;
+}
+.modeSwitch button:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+/* "Pressed" here means "current mode", not accent-coloured like the other toolbar toggles. */
+.controls .modeSwitch button[aria-pressed="true"] {
+  background: var(--surface-3);
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+}
+
+/* Shown while 2D stands in for a 3D view that could not start. */
+.modeNotice {
+  position: absolute;
+  top: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  margin: 0;
+  padding: 4px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-glass);
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+  pointer-events: none;
+}

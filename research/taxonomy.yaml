@@ -1,0 +1,167 @@
+# CANDEF taxonomy: 10 sectors, 30 subsectors. APPROVED for the pilot by the owner 2026-10-13 (P-24, D-08).
+# IDs are stable once published and must never change (rename a label instead; never reuse an ID).
+# Sectors are PRODUCT.md's approved segments. Every definition says what qualifies; P-12 and P-15
+# limits are written into it. Classification is an analyst judgement that needs a documented
+# dual-use rationale, never inherits a parent company's classification, and may have justified
+# secondary classifications (classified_as with primary: false).
+# Block style on purpose: flow mappings split labels that contain commas.
+- id: tax:cyber
+  parentId: null
+  label: Cybersecurity and secure infrastructure
+  definition: Products that protect information systems, identities or networks, with documented use by defence, security or critical-infrastructure customers or programs.
+- id: tax:cyber.identity
+  parentId: tax:cyber
+  label: Identity and access
+  definition: Authentication, credential, privileged-access and zero-trust products.
+- id: tax:cyber.threat
+  parentId: tax:cyber
+  label: Threat detection and response
+  definition: Monitoring, detection, threat intelligence and incident-response software or services.
+- id: tax:cyber.crypto
+  parentId: tax:cyber
+  label: Cryptography and quantum-safe security
+  definition: Encryption products, key management and post-quantum or quantum-key-distribution security.
+- id: tax:cyber.secure-systems
+  parentId: tax:cyber
+  label: Secure systems and platforms
+  definition: Hardened operating systems, secure devices and cross-domain or classified-network products.
+- id: tax:comms
+  parentId: null
+  label: Communications and networking
+  definition: Communications hardware or software whose documented customers or programs include defence, public-safety or government users.
+- id: tax:comms.secure-networking
+  parentId: tax:comms
+  label: Secure networking
+  definition: Encrypted, resilient or tactical network equipment and software.
+- id: tax:comms.radio
+  parentId: tax:comms
+  label: Radio and spectrum
+  definition: Radio systems, spectrum management, antennas and RF communications (not electronic attack).
+- id: tax:comms.positioning
+  parentId: tax:comms
+  label: Positioning, navigation and timing
+  definition: Resilient positioning, inertial navigation and timing for GNSS-degraded conditions.
+- id: tax:space
+  parentId: null
+  label: Space, satellites and earth observation
+  definition: Space systems and space-derived data. Earth observation qualifies only with documented security, defence or sovereignty use; environmental monitoring alone does not (P-12).
+- id: tax:space.satcom
+  parentId: tax:space
+  label: Satellite communications
+  definition: Satellite communication networks, terminals and data relay.
+- id: tax:space.earth-observation
+  parentId: tax:space
+  label: Earth observation and geospatial intelligence
+  definition: Imaging, SAR and geospatial analytics with documented security or sovereignty use.
+- id: tax:space.hardware
+  parentId: tax:space
+  label: Space hardware and robotics
+  definition: Satellite buses, payloads, space robotics and components.
+- id: tax:space.launch
+  parentId: tax:space
+  label: Launch and propulsion
+  definition: Launch vehicles, spaceports and space propulsion (not missile systems; P-15).
+- id: tax:space.awareness
+  parentId: tax:space
+  label: Space domain awareness
+  definition: Tracking and characterization of objects in orbit.
+- id: tax:logistics
+  parentId: null
+  label: Logistics and supply-chain technology
+  definition: Technology for moving, sustaining or tracking materiel and assets, with documented defence or public-sector logistics use.
+- id: tax:logistics.visibility
+  parentId: tax:logistics
+  label: Supply-chain visibility
+  definition: Tracking, provenance and supply-chain risk software.
+- id: tax:logistics.sustainment
+  parentId: tax:logistics
+  label: Fleet maintenance and sustainment
+  definition: Maintenance, condition monitoring and sustainment of vehicles, vessels and aircraft.
+- id: tax:sensors
+  parentId: null
+  label: Sensors and sensing
+  definition: Sensing hardware and analytics with documented defence, security or public-safety use. General environmental monitoring alone does not qualify (P-12).
+- id: tax:sensors.maritime
+  parentId: tax:sensors
+  label: Maritime and underwater sensing
+  definition: Sonar, acoustic arrays, underwater vehicles' sensors and maritime domain awareness.
+- id: tax:sensors.optical-rf
+  parentId: tax:sensors
+  label: Optical, infrared and RF sensing
+  definition: Imagers, photonics, radar and RF sensing (not targeting or fire control; P-15).
+- id: tax:sensors.quantum
+  parentId: tax:sensors
+  label: Quantum sensing
+  definition: Quantum magnetometers, gravimeters and other quantum-enabled sensors.
+- id: tax:robotics
+  parentId: null
+  label: Robotics and industrial automation (non-weaponized)
+  definition: Uncrewed systems and automation that are not weapons and carry no weapons payload. Counter-UAS interceptors and armed platforms are excluded (P-01).
+- id: tax:robotics.uncrewed-air
+  parentId: tax:robotics
+  label: Uncrewed aerial systems
+  definition: Non-weaponized drones for ISR, inspection, logistics or safety, and their autonomy software.
+- id: tax:robotics.ground-maritime
+  parentId: tax:robotics
+  label: Ground and maritime robotics
+  definition: Uncrewed ground, surface and underwater vehicles that are not weapons.
+- id: tax:robotics.autonomy
+  parentId: tax:robotics
+  label: Autonomy and perception software
+  definition: Navigation, perception and edge-AI software for robots.
+- id: tax:materials
+  parentId: null
+  label: Advanced materials and manufacturing
+  definition: Materials and production technology supplied to documented defence, aerospace or security programs. Energetics and munitions materials are excluded (P-15).
+- id: tax:materials.composites
+  parentId: tax:materials
+  label: Advanced materials and coatings
+  definition: Composites, protective materials, signature-management coatings and nanomaterials.
+- id: tax:materials.additive
+  parentId: tax:materials
+  label: Additive and precision manufacturing
+  definition: Additive manufacturing and precision production for aerospace and defence.
+- id: tax:materials.electronics
+  parentId: tax:materials
+  label: Electronics and semiconductors
+  definition: Ruggedized electronics, semiconductors and photonic chips.
+- id: tax:resilience
+  parentId: null
+  label: Critical-infrastructure resilience
+  definition: Protection and continuity of energy, industrial and public infrastructure against attack or failure.
+- id: tax:resilience.energy
+  parentId: tax:resilience
+  label: Energy and power resilience
+  definition: Deployable, off-grid or resilient power for critical or remote operations.
+- id: tax:resilience.ics
+  parentId: tax:resilience
+  label: Industrial control security
+  definition: Security of operational technology and industrial control systems.
+- id: tax:emergency
+  parentId: null
+  label: Emergency response and disaster support
+  definition: Tools for emergency services, search and rescue, CBRN protection and disaster response.
+- id: tax:emergency.coordination
+  parentId: tax:emergency
+  label: Incident coordination
+  definition: Command, coordination and situational-awareness software for responders.
+- id: tax:emergency.protection
+  parentId: tax:emergency
+  label: Protective equipment and CBRN
+  definition: Protective equipment and CBRN detection and protection (not weapons).
+- id: tax:emergency.sar
+  parentId: tax:emergency
+  label: Search and rescue technology
+  definition: Search-and-rescue equipment, sensing and platforms.
+- id: tax:other
+  parentId: null
+  label: Other verifiable non-weapon dual-use
+  definition: Dual-use technology outside the segments above. Each case needs an especially explicit, documented rationale.
+- id: tax:other.simulation
+  parentId: tax:other
+  label: Simulation and training
+  definition: Simulation, synthetic environments and training systems (non-weapon).
+- id: tax:other.quantum-computing
+  parentId: tax:other
+  label: Quantum computing
+  definition: Quantum computing hardware and software with documented security or defence relevance.

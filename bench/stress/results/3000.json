@@ -1,0 +1,176 @@
+{
+  "build": {
+    "companiesRequested": 3000,
+    "seed": 4242,
+    "organizations": 2941,
+    "universe": 2862,
+    "rounds": 6280,
+    "agreements": 7730,
+    "assertions": 17661,
+    "sources": 14981,
+    "edges": {
+      "capital": 13920,
+      "capitalBundles": 423,
+      "contracts": 6276,
+      "contractBundles": 177
+    },
+    "generateMs": 1807,
+    "compileMs": 2291,
+    "publishMs": 667,
+    "compileHeapDeltaMB": 16,
+    "snapshotMB": 44.58,
+    "snapshotGzipMB": 2.48
+  },
+  "coldLoad": {
+    "readyMs": 945,
+    "downloadMs": 478,
+    "parseMs": 141,
+    "indexMs": 16,
+    "longTasks": 2,
+    "blockingMs": 145,
+    "maxTaskMs": 160,
+    "heapMB": 55,
+    "domNodes": 705
+  },
+  "lensGovernment": {
+    "elapsedMs": 77,
+    "longTasks": 0,
+    "blockingMs": 0,
+    "maxTaskMs": 0
+  },
+  "lensIndustry": {
+    "elapsedMs": 69,
+    "longTasks": 0,
+    "blockingMs": 0,
+    "maxTaskMs": 0
+  },
+  "lensCapital": {
+    "elapsedMs": 83,
+    "longTasks": 0,
+    "blockingMs": 0,
+    "maxTaskMs": 0
+  },
+  "timeFilterYear": {
+    "elapsedMs": 77,
+    "longTasks": 0,
+    "blockingMs": 0,
+    "maxTaskMs": 0
+  },
+  "searchTyping": {
+    "elapsedMs": 426,
+    "longTasks": 0,
+    "blockingMs": 0,
+    "maxTaskMs": 0
+  },
+  "searchClear": {
+    "elapsedMs": 28,
+    "longTasks": 0,
+    "blockingMs": 0,
+    "maxTaskMs": 0
+  },
+  "filterSector": {
+    "elapsedMs": 18,
+    "longTasks": 0,
+    "blockingMs": 0,
+    "maxTaskMs": 0
+  },
+  "directoryScrollToEnd": {
+    "elapsedMs": 127,
+    "longTasks": 0,
+    "blockingMs": 0,
+    "maxTaskMs": 0
+  },
+  "directoryDom": {
+    "heapMB": 56,
+    "domNodes": 697
+  },
+  "listOpen": {
+    "elapsedMs": 124,
+    "longTasks": 0,
+    "blockingMs": 0,
+    "maxTaskMs": 0
+  },
+  "listRows": 100,
+  "listDom": {
+    "heapMB": 57,
+    "domNodes": 5439
+  },
+  "listSortSector": {
+    "elapsedMs": 144,
+    "longTasks": 1,
+    "blockingMs": 6,
+    "maxTaskMs": 56
+  },
+  "listSelectRow": {
+    "elapsedMs": 231,
+    "longTasks": 0,
+    "blockingMs": 0,
+    "maxTaskMs": 0
+  },
+  "heaviestDossierWeight": 314,
+  "dossierHeaviest": {
+    "elapsedMs": 261,
+    "longTasks": 1,
+    "blockingMs": 39,
+    "maxTaskMs": 89
+  },
+  "dossierChips": 471,
+  "dossierDom": {
+    "heapMB": 57,
+    "domNodes": 13778
+  },
+  "hubInvestorPortfolio": 1352,
+  "hubInvestorPanel": {
+    "elapsedMs": 54,
+    "longTasks": 0,
+    "blockingMs": 0,
+    "maxTaskMs": 0
+  },
+  "hubDepartmentAgreements": 1543,
+  "hubDepartmentPanel": {
+    "elapsedMs": 8,
+    "longTasks": 0,
+    "blockingMs": 0,
+    "maxTaskMs": 0
+  },
+  "phoneListLoad": {
+    "readyMs": 904,
+    "longTasks": 2,
+    "blockingMs": 114,
+    "maxTaskMs": 163,
+    "heapMB": 54,
+    "domNodes": 5798
+  },
+  "at": "2026-10-14T21:16:04.640Z",
+  "graphZoom": {
+    "frames": 312,
+    "p50Ms": 17,
+    "p95Ms": 17,
+    "maxMs": 17,
+    "longTasks": 0,
+    "blockingMs": 0,
+    "maxTaskMs": 0
+  },
+  "graphOrbit": {
+    "frames": 180,
+    "p50Ms": 17,
+    "p95Ms": 17,
+    "maxMs": 17,
+    "longTasks": 0,
+    "blockingMs": 0,
+    "maxTaskMs": 0
+  },
+  "graphGovernmentLens": {
+    "frames": 93,
+    "p50Ms": 17,
+    "p95Ms": 17,
+    "maxMs": 17,
+    "longTasks": 0,
+    "blockingMs": 0,
+    "maxTaskMs": 0
+  },
+  "accessibility": {
+    "list": [],
+    "dossier": []
+  }
+}

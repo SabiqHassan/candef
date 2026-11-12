@@ -1,0 +1,51 @@
+{
+  "at": "2026-10-14T22:32:54.266Z",
+  "desktop": {
+    "cpuThrottle": 1,
+    "listReadyMs": 982,
+    "loadMarks": {
+      "downloaded": 598,
+      "parsed": 746,
+      "indexed": 764
+    },
+    "sortMs": 251,
+    "graphReadyMs": 440,
+    "orbit": {
+      "frames": 70,
+      "p50Ms": 17,
+      "p95Ms": 17
+    }
+  },
+  "phone-4x": {
+    "cpuThrottle": 4,
+    "listReadyMs": 3374,
+    "loadMarks": {
+      "downloaded": 872,
+      "parsed": 1439,
+      "indexed": 1508
+    },
+    "sortMs": 501,
+    "graphReadyMs": 1643,
+    "orbit": {
+      "frames": 71,
+      "p50Ms": 17,
+      "p95Ms": 17
+    }
+  },
+  "phone-6x": {
+    "cpuThrottle": 6,
+    "listReadyMs": 3880,
+    "loadMarks": {
+      "downloaded": 1129,
+      "parsed": 2107,
+      "indexed": 2332
+    },
+    "sortMs": 568,
+    "graphReadyMs": 2439,
+    "orbit": {
+      "frames": 83,
+      "p50Ms": 17,
+      "p95Ms": 17
+    }
+  }
+}

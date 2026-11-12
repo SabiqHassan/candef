@@ -1,0 +1,201 @@
+.withHistory {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.history {
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}
+.fact {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+
+.state {
+  font-size: var(--fs-sm);
+}
+.verified {
+  color: var(--state-verified);
+}
+.unconfirmed {
+  color: var(--state-unconfirmed);
+}
+.undisclosed {
+  color: var(--text-2);
+}
+.not_found {
+  color: var(--state-missing);
+}
+.not_researched {
+  color: var(--state-missing);
+  font-style: italic;
+}
+.disputed {
+  color: var(--state-disputed);
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.disputed .fact {
+  color: var(--text);
+}
+
+.tag {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  padding: 0 4px;
+  line-height: 16px;
+}
+
+.chips {
+  display: inline-flex;
+  gap: 3px;
+}
+.more {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+.chipWrap {
+  position: relative;
+  display: inline-flex;
+}
+.chip {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 15px;
+  padding: 0 4px;
+  border-radius: 3px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface-2);
+  color: var(--text-2);
+}
+/* 44 px touch target without enlarging the visible chip */
+.chip::after {
+  content: "";
+  position: absolute;
+  inset: -14px -10px;
+}
+.chip:hover,
+.chip[aria-expanded="true"] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.pop {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 6px);
+  left: -8px;
+  width: 280px;
+  max-width: calc(100vw - 24px);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: var(--s3);
+  background: var(--surface-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 28px rgb(0 0 0 / 0.45);
+  font-size: var(--fs-sm);
+  color: var(--text);
+  font-style: normal;
+}
+.pop[data-placement="above"] {
+  top: auto;
+  bottom: calc(100% + 6px);
+}
+.pop[data-align="right"] {
+  left: auto;
+  right: -8px;
+}
+.popClose {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-2);
+  font-size: var(--fs-xl);
+  line-height: 1;
+  cursor: pointer;
+}
+.popClose:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+.pop strong {
+  padding-right: 28px; /* clear of the close button */
+}
+.popSection {
+  margin-top: var(--s2);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.locators {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.locators code {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  overflow-wrap: anywhere;
+}
+.popMeta {
+  color: var(--text-muted);
+}
+/* A government row locator decoded into labelled fields (display only; the stored text is unchanged). */
+.rowLocator {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-size: var(--fs-xs);
+}
+.rowField {
+  overflow-wrap: anywhere;
+}
+.rowLabel {
+  color: var(--text-muted);
+}
+.fingerprint summary {
+  cursor: pointer;
+  color: var(--text-muted);
+}
+.fingerprint code {
+  font-family: var(--font-mono);
+  overflow-wrap: anywhere;
+}
+
+.demoTag {
+  font-size: var(--fs-xs);
+  color: var(--demo);
+  background: var(--demo-soft);
+  border-radius: 3px;
+  padding: 0 5px;
+  line-height: 17px;
+}
+
+/* Verification basis in a citation card (VERIFICATION_TIERS.md section 9). A preview draft is
+   marked in the warning colour so it can never read as a verified claim. */
+.check {
+  color: var(--text);
+}
+.check[data-verification="draft"] {
+  color: var(--state-unconfirmed);
+  font-weight: 600;
+}

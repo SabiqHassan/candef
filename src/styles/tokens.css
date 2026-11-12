@@ -1,0 +1,69 @@
+/* CANDEF design tokens (docs/DESIGN.md). One accent; entity colours encode type, never decoration. */
+:root {
+  /* Surfaces */
+  --ink: #07090c;
+  --surface-1: #0d1117;
+  --surface-2: #121821;
+  --surface-3: #18202b;
+  --surface-glass: rgb(13 17 23 / 0.86);
+  --line: #1e2733;
+  --line-strong: #2c3847;
+
+  /* Text */
+  --text: #e3e9ef;
+  --text-2: #a7b4c1;
+  --text-muted: #8391a0; /* 5.1:1 on the lightest surface (was #6f7d8b, 3.9:1) */
+  --text-faint: #4d5a67;
+
+  /* Accent: selection and focus only */
+  --accent: #8fc3ea;
+  --accent-soft: rgb(143 195 234 / 0.14);
+  --focus: #b9dcf6;
+
+  /* Entities (shape + colour) */
+  --company: #a9c7e0;
+  --investor: #cdbe9c;
+  --government: #86b3a3;
+  --institution: #a49fb3;
+
+  /* Relationship families (edge hue; line style stays the evidence encoding) */
+  --edge-capital: #99b3c4;
+  --edge-procurement: #7bb39a;
+  --edge-grant: #c4a661;
+  --edge-lineage: #a0a6ab;
+
+  /* Data states */
+  --state-verified: #e3e9ef;
+  --state-unconfirmed: #d6b26e;
+  --state-disputed: #e09a7f;
+  --state-missing: #8391a0;
+  --demo: #c9a5d8;
+  --demo-soft: rgb(201 165 216 / 0.12);
+
+  /* Type */
+  --font-sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", Consolas, monospace;
+  --fs-xs: 11px;
+  --fs-sm: 12px;
+  --fs-md: 13px;
+  --fs-lg: 15px;
+  --fs-xl: 18px;
+  --fs-2xl: 22px;
+  --fs-3xl: 28px;
+
+  /* Space (4px grid) */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 20px;
+  --s6: 24px;
+  --s8: 32px;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --topbar-h: 48px;
+  --directory-w: 320px;
+  --panel-w: 400px;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}

@@ -1,0 +1,30 @@
+node_modules/
+dist/
+*.tsbuildinfo
+*.log
+.vite/
+.env*
+!.env.example
+!.env.research
+!.env.stress
+!.env.localpreview
+# Test / agent artifacts
+.playwright-mcp/
+playwright-report/
+test-results/
+.agent-report.md
+# Raw source captures (NOT reproducible; may contain licensed content). Private archive outside Git (D-15).
+research-cache/
+# Generated snapshots (rebuilt by `npm run data:demo`)
+public/data/
+# Synthetic stress datasets and builds (fictional; never committed, never in public/)
+.stress/
+dist-stress/
+tests/e2e/artifacts/
+tests/stress/artifacts/
+coverage/
+# Local preview of simulated approvals (task 7): never committed, never deployed.
+.preview/
+# Google Drive backup temp folder (created inside the project by the owner's Drive sync).
+.tmp.driveupload/
+pages-dist/

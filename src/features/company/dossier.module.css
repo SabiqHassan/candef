@@ -1,0 +1,283 @@
+.dossier {
+  max-width: 1040px;
+}
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+}
+.head {
+  margin: var(--s4) 0 var(--s5);
+}
+.head h1 {
+  font-size: var(--fs-3xl);
+  line-height: 1.15;
+}
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3);
+  margin-top: var(--s2);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+.lede {
+  max-width: 68ch;
+  color: var(--text);
+  font-size: var(--fs-lg);
+  line-height: 1.55;
+  margin: var(--s3) 0 0;
+}
+.toc {
+  position: sticky;
+  top: calc(-1 * var(--s8));
+  z-index: 2;
+  display: flex;
+  gap: var(--s5);
+  padding: var(--s3) 0;
+  background: var(--ink);
+  border-bottom: 1px solid var(--line);
+  font-size: var(--fs-sm);
+}
+.toc a {
+  color: var(--text-2);
+}
+.section {
+  padding: var(--s6) 0;
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: 48px;
+}
+.section h2 {
+  font-size: var(--fs-xl);
+  margin-bottom: var(--s3);
+}
+.block {
+  margin-top: var(--s4);
+}
+.block h3 {
+  font-size: var(--fs-md);
+  margin-bottom: var(--s2);
+  display: flex;
+  gap: var(--s2);
+  color: var(--text);
+}
+.facts {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: var(--s2) var(--s4);
+  margin: 0;
+}
+.facts dt {
+  color: var(--text-muted);
+}
+.facts dd {
+  margin: 0;
+}
+.summary {
+  max-width: 72ch;
+  color: var(--text-2);
+}
+.summary :global(.num) {
+  color: var(--text);
+  font-size: var(--fs-lg);
+}
+.jurisdiction {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2);
+}
+/* Native popup ownership matches the directory filters; token colours keep the closed control readable. */
+.jurisdiction select {
+  min-width: 0;
+  max-width: 100%;
+  height: 30px;
+  padding: 0 6px;
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+}
+.events a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+  margin-top: var(--s2);
+}
+.table th,
+.table td {
+  text-align: left;
+  vertical-align: top;
+  padding: var(--s2) var(--s3) var(--s2) 0;
+  border-bottom: 1px solid var(--line);
+}
+.table thead th {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.table tbody th {
+  font-weight: 500;
+}
+.unverified td {
+  color: var(--text-2);
+}
+.note {
+  display: block;
+  color: var(--text-muted);
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  margin-top: 2px;
+}
+.muted {
+  color: var(--text-muted);
+}
+.investor {
+  display: block;
+}
+.tranches {
+  list-style: none;
+  margin: var(--s1) 0 0;
+  padding: 0;
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+}
+.events {
+  margin: var(--s3) 0 0;
+  padding-left: var(--s4);
+}
+.sources {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s2);
+  font-size: var(--fs-sm);
+}
+.sources li {
+  display: flex;
+  gap: var(--s3);
+}
+.tier {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  padding: 0 4px;
+  height: 18px;
+}
+.flag {
+  color: var(--state-unconfirmed);
+  font-size: var(--fs-sm);
+}
+.related {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s6);
+}
+.related h3 {
+  font-size: var(--fs-md);
+  margin-bottom: var(--s2);
+}
+.related ul {
+  margin: 0;
+  padding-left: var(--s4);
+  display: grid;
+  gap: 4px;
+}
+
+@media (max-width: 760px) {
+  .facts {
+    grid-template-columns: 1fr;
+  }
+  .facts dt {
+    margin-top: var(--s2);
+  }
+  .related {
+    grid-template-columns: 1fr;
+  }
+  /* Tables stack: each row becomes a block and each cell carries its own label (UX review 2). */
+  .table,
+  .table tbody {
+    display: block;
+  }
+  .table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .table tr {
+    display: block;
+    padding: var(--s3) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .table th,
+  .table td {
+    display: block;
+    padding: 0 0 var(--s2);
+    border-bottom: 0;
+  }
+  .table tbody th {
+    font-size: var(--fs-md);
+  }
+  .table td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    color: var(--text-muted);
+    font-size: var(--fs-xs);
+  }
+}
+
+.identifier {
+  display: block;
+}
+
+.supports {
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+}
+.supports code {
+  font-family: var(--font-mono);
+  overflow-wrap: anywhere;
+}
+
+/* Narrow screens: the section links scroll sideways, and an edge fade shows that more are hidden
+   (UX review #14). The fades are painted by the browser only while there is content to scroll to. */
+@media (max-width: 760px) {
+  .toc {
+    gap: var(--s4);
+    overflow-x: auto;
+    scrollbar-width: none;
+    background:
+      linear-gradient(to right, var(--ink) 30%, transparent) left / 28px 100% no-repeat local,
+      linear-gradient(to left, var(--ink) 30%, transparent) right / 28px 100% no-repeat local,
+      linear-gradient(to right, var(--line-strong), transparent) left / 12px 100% no-repeat scroll,
+      linear-gradient(to left, var(--line-strong), transparent) right / 12px 100% no-repeat scroll,
+      var(--ink);
+  }
+  .toc a {
+    flex: none;
+    white-space: nowrap;
+    padding: var(--s2) 0;
+  }
+}
+
+/* Verification basis of the claim a source supports (VERIFICATION_TIERS.md section 9). */
+.check {
+  color: var(--text);
+}

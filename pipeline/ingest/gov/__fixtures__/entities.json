@@ -1,0 +1,9 @@
+[
+  {
+    "orgId": "org_fictional_alpha",
+    "names": ["Fictional Alpha Bio Inc.", "Fictional Biologie Alpha Ltée"],
+    "businessNumbers": ["123456789"],
+    "postalFsas": ["Z1Z"],
+    "is_demo": true
+  }
+]
