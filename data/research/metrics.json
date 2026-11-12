@@ -1,0 +1,26 @@
+{
+  "builtAt": "2026-11-12T02:44:58.375Z",
+  "snapshot": "snapshot.9602e202cb5658c4.json",
+  "compileMs": 1865,
+  "snapshotBytes": 1579272,
+  "snapshotGzipBytes": 169704,
+  "files": 457,
+  "records": {
+    "organizations": 209,
+    "sources": 247,
+    "assertions": 716,
+    "rounds": 42,
+    "agreements": 461,
+    "acquisitions": 9,
+    "research": 373,
+    "proposed": 499
+  },
+  "published": {
+    "companies": 30,
+    "assertions": 194
+  },
+  "d03Triggers": {
+    "compileOver60s": false,
+    "snapshotOver5MBGzip": false
+  }
+}
