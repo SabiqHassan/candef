@@ -2,7 +2,7 @@
 
 A research and market-mapping tool for **Canadian-headquartered companies in defence, security, space and dual-use technology**, built for investors and analysts.
 
-**Live site:** https://amazinglikepie.github.io/candef/
+**Live site:** https://sabiqhassan.github.io/candef/
 
 ## What it does
 
